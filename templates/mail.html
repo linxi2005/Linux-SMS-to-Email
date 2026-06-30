@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3 class="mb-4">邮件转发配置</h3>
+<form method="post" class="card p-3 mb-3">
+  <div class="form-check mb-3"><input class="form-check-input" type="checkbox" name="enabled" {% if config.enabled %}checked{% endif %}><label class="form-check-label">启用邮件转发</label></div>
+  <div class="row g-3"><div class="col-md-4"><label class="form-label">SMTP服务器</label><input class="form-control" name="smtp_server" value="{{ config.smtp_server }}"></div><div class="col-md-2"><label class="form-label">端口</label><input class="form-control" name="port" value="{{ config.port }}"></div><div class="col-md-3"><label class="form-label">用户名</label><input class="form-control" name="username" value="{{ config.username }}"></div><div class="col-md-3"><label class="form-label">发件邮箱</label><input class="form-control" name="from_email" value="{{ config.from_email }}"></div></div>
+  <div class="row g-3 mt-1"><div class="col-md-3"><label class="form-label">密码</label><input class="form-control" type="password" name="password" placeholder="留空不修改"></div><div class="col-md-2 form-check mt-4 ms-3"><input class="form-check-input" type="checkbox" name="use_ssl" {% if config.use_ssl %}checked{% endif %}> SSL</div><div class="col-md-2 form-check mt-4"><input class="form-check-input" type="checkbox" name="use_tls" {% if config.use_tls %}checked{% endif %}> TLS</div><div class="col-md-2"><label class="form-label">超时秒</label><input class="form-control" name="timeout_seconds" value="{{ config.timeout_seconds }}"></div></div>
+  <div class="mb-3 mt-3"><label class="form-label">收件人，每行一个</label><textarea class="form-control" name="recipients" rows="4">{{ recipients }}</textarea></div>
+  <div class="mb-3"><label class="form-label">主题模板</label><input class="form-control" name="subject_template" value="{{ config.subject_template }}"></div>
+  <div class="mb-3"><label class="form-label">正文模板</label><textarea class="form-control" name="body_template" rows="7">{{ config.body_template }}</textarea></div>
+  <button class="btn btn-primary" name="action" value="save">保存</button> <button class="btn btn-outline-secondary" name="action" value="test">测试发送</button>
+</form>
+<div class="card p-3"><h5>最近邮件日志</h5><table class="table table-sm"><tbody>{% for log in logs %}<tr><td>{{ log.sent_at }}</td><td>{{ log.recipient }}</td><td>{{ '成功' if log.success else '失败' }}</td><td>{{ log.error_message }}</td></tr>{% endfor %}</tbody></table></div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3 class="mb-4">手动读取模块短信</h3>
+<form method="post" class="card p-3 mb-3 row g-2 flex-row">
+  <input type="hidden" name="action" value="read">
+  <div class="col-md-4"><select class="form-select" name="module_id">{% for modem in modems %}<option value="{{ modem.module_id }}" {% if selected_module==modem.module_id %}selected{% endif %}>{{ modem.remark }} - {{ modem.port }}</option>{% endfor %}</select></div>
+  <div class="col-md-3"><select class="form-select" name="status"><option value="ALL">全部</option><option value="REC UNREAD">未读</option><option value="REC READ">已读</option></select></div>
+  <div class="col-md-2"><button class="btn btn-primary">读取</button></div>
+</form>
+<div class="card p-3"><table class="table table-sm"><thead><tr><th>索引</th><th>状态</th><th>号码</th><th>时间</th><th>内容</th><th>操作</th></tr></thead><tbody>{% for msg in messages %}<tr><td>{{ msg.sms_index }}</td><td>{{ msg.status }}</td><td>{{ msg.phone }}</td><td>{{ msg.receive_time }}</td><td>{{ msg.content }}</td><td><form method="post"><input type="hidden" name="action" value="mail"><input type="hidden" name="phone" value="{{ msg.phone }}"><input type="hidden" name="receive_time" value="{{ msg.receive_time }}"><input type="hidden" name="content" value="{{ msg.content }}"><input type="hidden" name="modem_name" value="{{ msg.modem_name }}"><button class="btn btn-sm btn-outline-primary">发送到邮箱</button></form></td></tr>{% endfor %}</tbody></table></div>
+{% endblock %}

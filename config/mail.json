@@ -1,0 +1,14 @@
+{
+  "enabled": false,
+  "smtp_server": "smtp.example.com",
+  "port": 465,
+  "use_ssl": true,
+  "use_tls": false,
+  "username": "",
+  "from_email": "",
+  "password": "",
+  "recipients": [],
+  "subject_template": "收到来自{{phone}}的新短信",
+  "body_template": "来源号码：{{phone}}\n接收时间：{{time}}\n短信内容：{{content}}\n模块：{{module_name}}\n串口：{{module_port}}\n型号：{{module_model}}\nIMEI：{{imei}}\n运营商：{{operator}}\n信号：{{signal}}",
+  "timeout_seconds": 20
+}

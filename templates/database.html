@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3 class="mb-4">数据库维护</h3>
+{% if result %}<div class="alert alert-info">{{ result }}</div>{% endif %}
+<div class="card p-3 mb-3"><table class="table"><tr><th>路径</th><td>{{ stats.db_path }}</td></tr><tr><th>大小</th><td>{{ stats.db_size }} bytes</td></tr><tr><th>短信数量</th><td>{{ stats.sms_count }}</td></tr><tr><th>模块数量</th><td>{{ stats.modem_count }}</td></tr><tr><th>邮件成功</th><td>{{ stats.mail_success }}</td></tr><tr><th>邮件失败</th><td>{{ stats.mail_failed }}</td></tr></table></div>
+<form method="post" class="d-flex gap-2 mb-3"><button class="btn btn-outline-primary" name="action" value="vacuum">数据库优化</button><button class="btn btn-outline-secondary" name="action" value="check">完整性检查</button><button class="btn btn-outline-success" name="action" value="backup">一键备份</button></form>
+<form method="post" class="card p-3 mb-3 row g-2 flex-row"><div class="col-md-3"><input class="form-control" name="days" placeholder="删除超过多少天"></div><div class="col-md-3"><button class="btn btn-outline-danger" name="action" value="cleanup_days">按天数清理</button></div><div class="col-md-3"><input class="form-control" name="max_count" placeholder="仅保留最新条数"></div><div class="col-md-3"><button class="btn btn-outline-danger" name="action" value="cleanup_count">按数量清理</button></div></form>
+<form method="post" enctype="multipart/form-data" class="card p-3"><label class="form-label">恢复数据库</label><div class="d-flex gap-2"><input class="form-control" type="file" name="db_file" accept=".db"><button class="btn btn-warning" name="action" value="restore">恢复</button></div></form>
+{% endblock %}

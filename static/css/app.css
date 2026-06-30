@@ -1,0 +1,16 @@
+body { background: #f6f7fb; }
+.sidebar { min-height: 100vh; background: #111827; }
+.sidebar a { color: #d1d5db; text-decoration: none; display: block; padding: .65rem 1rem; border-radius: .35rem; }
+.sidebar a:hover { background: #1f2937; color: #fff; }
+.card { border-radius: .5rem; border: 1px solid #e5e7eb; }
+.status-dot { width: .65rem; height: .65rem; border-radius: 50%; display: inline-block; }
+.status-online { background: #22c55e; }
+.status-offline { background: #ef4444; }
+.table td { vertical-align: middle; }
+.log-line { font-family: Consolas, monospace; white-space: pre-wrap; }
+.log-error { color: #dc2626; }
+.log-warning { color: #d97706; }
+.log-info { color: #2563eb; }
+[data-theme="dark"] body, body.dark { background: #0f172a; color: #e5e7eb; }
+body.dark .card, body.dark .table, body.dark .form-control, body.dark .form-select { background: #111827; color: #e5e7eb; border-color: #374151; }
+body.dark .table { --bs-table-bg: #111827; --bs-table-color: #e5e7eb; }

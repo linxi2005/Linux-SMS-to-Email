@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3 class="mb-4">日志</h3>
+<form method="post" action="{{ url_for('main.clear_logs') }}" class="mb-3"><button class="btn btn-outline-danger">清空日志</button></form>
+<div class="card p-3">
+{% for line in lines %}<div class="log-line {% if 'ERROR' in line %}log-error{% elif 'WARNING' in line %}log-warning{% else %}log-info{% endif %}">{{ line }}</div>{% endfor %}
+</div>
+{% endblock %}

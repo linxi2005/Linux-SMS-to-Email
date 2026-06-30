@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3 class="mb-4">系统设置</h3>
+<form method="post" class="card p-3 row g-3">
+  {% for key, label in [('log_level','日志等级'),('sms_page_size','短信分页大小'),('sync_interval_seconds','自动同步周期秒'),('heartbeat_interval_seconds','保活周期秒'),('reconnect_initial_seconds','初始重连秒'),('reconnect_max_seconds','最大重连退避秒'),('mail_timeout_seconds','邮件超时秒'),('ui_refresh_seconds','页面刷新秒')] %}
+  <div class="col-md-3"><label class="form-label">{{ label }}</label><input class="form-control" name="{{ key }}" value="{{ config[key] }}"></div>
+  {% endfor %}
+  <div class="col-12"><button class="btn btn-primary">保存</button></div>
+</form>
+{% endblock %}

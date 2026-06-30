@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3 class="mb-4">首页</h3>
+<div class="row g-3 mb-4">
+  <div class="col-md-3"><div class="card p-3"><div class="text-muted">模块在线</div><h3>{{ stats.online_modem_count }}/{{ stats.modem_count }}</h3></div></div>
+  <div class="col-md-3"><div class="card p-3"><div class="text-muted">短信总数</div><h3>{{ stats.sms_count }}</h3></div></div>
+  <div class="col-md-3"><div class="card p-3"><div class="text-muted">今日短信</div><h3>{{ stats.today_sms_count }}</h3></div></div>
+  <div class="col-md-3"><div class="card p-3"><div class="text-muted">今日转发失败</div><h3>{{ stats.forward_fail_today }}</h3></div></div>
+</div>
+<div class="row g-3 mb-4">
+  <div class="col-md-4"><div class="card p-3">CPU：{{ stats.cpu_percent }}%</div></div>
+  <div class="col-md-4"><div class="card p-3">内存：{{ stats.memory_percent }}%</div></div>
+  <div class="col-md-4"><div class="card p-3">磁盘：{{ stats.disk_percent }}%</div></div>
+</div>
+<div class="card p-3">
+  <h5>模块状态</h5>
+  <div class="table-responsive"><table class="table table-sm">
+    <thead><tr><th>状态</th><th>备注</th><th>串口</th><th>型号</th><th>IMEI</th><th>ICCID</th><th>运营商</th><th>信号</th><th>最近通信</th></tr></thead>
+    <tbody>{% for modem in modems %}<tr><td><span class="status-dot {{ 'status-online' if modem.is_online else 'status-offline' }}"></span></td><td>{{ modem.remark }}</td><td>{{ modem.port }}</td><td>{{ modem.model }}</td><td>{{ modem.imei }}</td><td>{{ modem.iccid }}</td><td>{{ modem.operator_name }}</td><td>{{ modem.signal_percent }}%</td><td>{{ modem.last_seen_at }}</td></tr>{% endfor %}</tbody>
+  </table></div>
+</div>
+{% endblock %}

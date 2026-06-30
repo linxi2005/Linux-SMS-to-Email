@@ -1,0 +1,15 @@
+[Unit]
+Description=EC20 SMS Forwarder
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/ec20-sms-forwarder
+ExecStart=/opt/ec20-sms-forwarder/.venv/bin/python /opt/ec20-sms-forwarder/app.py
+Restart=always
+RestartSec=10
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target

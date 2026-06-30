@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3 class="mb-4">模块管理</h3>
+<form method="post" class="card p-3 mb-3 row g-2 flex-row">
+  <input type="hidden" name="action" value="add">
+  <div class="col-md-4"><input class="form-control" name="port" placeholder="/dev/ttyUSB2"></div>
+  <div class="col-md-4"><input class="form-control" name="remark" placeholder="EC20-1"></div>
+  <div class="col-md-2"><button class="btn btn-primary"><i class="fa-solid fa-plus"></i> 添加</button></div>
+</form>
+<div class="card p-3"><div class="table-responsive"><table class="table">
+<thead><tr><th>状态</th><th>备注</th><th>串口</th><th>型号</th><th>IMEI</th><th>SIM</th><th>操作</th></tr></thead>
+<tbody>{% for modem in modems %}
+<tr>
+<td><span class="status-dot {{ 'status-online' if modem.is_online else 'status-offline' }}"></span></td>
+<td><form method="post" class="d-flex gap-1"><input type="hidden" name="action" value="remark"><input type="hidden" name="module_id" value="{{ modem.module_id }}"><input class="form-control form-control-sm" name="remark" value="{{ modem.remark }}"><button class="btn btn-sm btn-outline-secondary" title="编辑"><i class="fa-solid fa-pencil"></i></button></form></td>
+<td>{{ modem.port }}</td><td>{{ modem.model }}</td><td>{{ modem.imei }}</td><td>{{ modem.sim_status }}</td>
+<td class="d-flex gap-1 flex-wrap">
+<form method="post"><input type="hidden" name="module_id" value="{{ modem.module_id }}"><input type="hidden" name="action" value="{{ 'disable' if modem.enabled else 'enable' }}"><button class="btn btn-sm btn-outline-warning">{{ '禁用' if modem.enabled else '启用' }}</button></form>
+<form method="post" onsubmit="return confirmReboot()"><input type="hidden" name="module_id" value="{{ modem.module_id }}"><input type="hidden" name="action" value="reboot"><button class="btn btn-sm btn-danger"><i class="fa-solid fa-power-off"></i> 重启模块</button></form>
+<form method="post"><input type="hidden" name="module_id" value="{{ modem.module_id }}"><input type="hidden" name="action" value="delete"><button class="btn btn-sm btn-outline-danger">删除</button></form>
+</td></tr>{% endfor %}</tbody></table></div></div>
+{% endblock %}

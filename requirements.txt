@@ -1,0 +1,5 @@
+Flask>=2.2,<2.4
+SQLAlchemy>=1.4,<2.1
+pyserial>=3.5,<4
+Werkzeug>=2.2,<3
+psutil>=5.9,<6
